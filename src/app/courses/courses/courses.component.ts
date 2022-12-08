@@ -11,10 +11,10 @@ import { CoursesService } from '../services/courses.service';
   styleUrls: ['./courses.component.scss']
 })
 
-export class CoursesComponent implements OnInit{
+export class CoursesComponent {
 
   courses$:Observable<Course[]>;
-  displayedColumns = ['_id','name','category'];
+  displayedColumns = ['name','category'];
 
   // coursesService:CoursesService;
 
@@ -22,7 +22,7 @@ export class CoursesComponent implements OnInit{
     private coursesService:CoursesService,
     public dialog: MatDialog
     ) {
-    // this.coursesService = new CoursesService();
+
     this.courses$ = this.coursesService.list()
     .pipe(
       catchError(error => {
@@ -37,12 +37,4 @@ export class CoursesComponent implements OnInit{
       data: errorMsg
     });
   }
-
-  ngOnInit(): void {
-    // this.courses = this.coursesService.list();
-  }
-
-
-
-
 }
