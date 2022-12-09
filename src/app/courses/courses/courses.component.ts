@@ -15,7 +15,7 @@ import { CoursesService } from '../services/courses.service';
 export class CoursesComponent {
 
   courses$:Observable<Course[]>;
-  displayedColumns = ['name','category','actions'];
+
 
   // coursesService:CoursesService;
 
@@ -42,8 +42,6 @@ export class CoursesComponent {
   }
 
   onAdd(){
-    console.log("onAdd");
-
     this.router.navigate(['new'], {relativeTo:this.route});
   }
 }
