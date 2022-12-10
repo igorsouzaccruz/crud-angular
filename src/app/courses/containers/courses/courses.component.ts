@@ -3,8 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, Observable, of } from 'rxjs';
 import { ErroDialogComponent } from 'src/app/shared/components/erro-dialog/erro-dialog.component';
-import { Course } from '../model/course';
-import { CoursesService } from '../services/courses.service';
+import { Course } from '../../model/course';
+import { CoursesService } from '../../services/courses.service';
 
 @Component({
   selector: 'app-courses',
@@ -15,9 +15,6 @@ import { CoursesService } from '../services/courses.service';
 export class CoursesComponent {
 
   courses$:Observable<Course[]>;
-
-
-  // coursesService:CoursesService;
 
   constructor(
     private coursesService:CoursesService,
