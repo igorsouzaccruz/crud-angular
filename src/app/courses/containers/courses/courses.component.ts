@@ -50,6 +50,7 @@ export class CoursesComponent {
     this.router.navigate(['edit', course._id], { relativeTo: this.route });
   }
 
+<<<<<<< HEAD
   onRemove(course: Course) {
     const dialogRef = this.dialog.open(ConfimationDialogComponent, {
       data: 'Tem certeza que deseja remover esse curso?',
@@ -67,6 +68,25 @@ export class CoursesComponent {
             });
           },
           () => this.onError('Erro ao tentar remover curso!')
+=======
+  onRemove(course:Course) {
+    const dialogRef = this.dialog.open(ConfimationDialogComponent, {
+      data: "Tem certeza que deseja remover esse curso?",
+    });
+
+    dialogRef.afterClosed().subscribe((result:boolean )=> {
+      if(result) {
+        this.coursesService.remove(course._id).subscribe(
+          () => {
+            this.refresh();
+            this.snackBar.open("Curso removido com sucesso!",'X',{
+              duration:5000,
+              verticalPosition: "top",
+              horizontalPosition: "center"
+            });
+          },
+          () => this.onError("Erro ao tentar remover curso!")
+>>>>>>> 9ddfe604478bc6112ba7e0ab13da0f18ba4e1bec
         );
       }
     });
