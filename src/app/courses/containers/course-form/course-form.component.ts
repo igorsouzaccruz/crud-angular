@@ -1,6 +1,11 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, NonNullableFormBuilder, UntypedFormArray, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  NonNullableFormBuilder,
+  UntypedFormArray,
+  Validators,
+} from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { CoursesService } from '../../services/courses.service';
@@ -14,7 +19,6 @@ import { Lesson } from '../../model/lesson';
   styleUrls: ['./course-form.component.scss'],
 })
 export class CourseFormComponent implements OnInit {
-
   form!: FormGroup;
 
   constructor(
@@ -39,7 +43,10 @@ export class CourseFormComponent implements OnInit {
         ],
       ],
       category: [course.category, [Validators.required]],
-      lessons: this.formBuilder.array(this.retrieveLessons(course)),
+      lessons: this.formBuilder.array(
+        this.retrieveLessons(course),
+        Validators.required
+      ),
     });
     console.log(this.form);
     console.log(this.form.value);
@@ -60,8 +67,22 @@ export class CourseFormComponent implements OnInit {
   private createLesson(lesson: Lesson = { id: '', name: '', youtubeUrl: '' }) {
     return this.formBuilder.group({
       id: [lesson.id],
-      name: [lesson.name],
-      youtubeUrl: [lesson.youtubeUrl],
+      name: [
+        lesson.name,
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(100),
+        ],
+      ],
+      youtubeUrl: [
+        lesson.youtubeUrl,
+        [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(11),
+        ],
+      ],
     });
   }
 
@@ -69,21 +90,25 @@ export class CourseFormComponent implements OnInit {
     return (<UntypedFormArray>this.form.get('lessons')).controls;
   }
 
-  addNewLesson(){
+  addNewLesson() {
     const lessons = this.form.get('lessons') as UntypedFormArray;
     lessons.push(this.createLesson());
   }
 
-  removeLesson(index: number){
+  removeLesson(index: number) {
     const lessons = this.form.get('lessons') as UntypedFormArray;
     lessons.removeAt(index);
   }
 
   onSubmit() {
-    this.service.save(this.form.value).subscribe({
-      next: (result) => this.onSuccess(),
-      error: (error) => this.onError(),
-    });
+    if (this.form.valid) {
+      this.service.save(this.form.value).subscribe({
+        next: (result) => this.onSuccess(),
+        error: (error) => this.onError(),
+      });
+    } else {
+      alert('Formulário inválido');
+    }
   }
 
   onCancel() {
@@ -121,5 +146,10 @@ export class CourseFormComponent implements OnInit {
 
   private onError() {
     this.snackBar.open('Erro ao salvar curso.', '', { duration: 5000 });
+  }
+
+  isFormArrayRequired() {
+    const lessons = this.form.get('lessons') as UntypedFormArray;
+    return lessons.invalid && lessons.hasError('required') && lessons.touched;
   }
 }
