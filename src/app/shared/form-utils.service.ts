@@ -70,7 +70,7 @@ export class FormUtilsService {
   isFormArrayRequired(formGroup: UntypedFormGroup, formArrayName: string) {
     const formArray = formGroup.get(formArrayName) as UntypedFormArray;
     return (
-      !formArray.invalid && formArray.hasError('required') && formArray.touched
+      !formArray.valid && formArray.hasError('required') && formArray.touched
     );
   }
 }
