@@ -1,10 +1,14 @@
 import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogActions } from '@angular/material/dialog';
+import { MatButton } from '@angular/material/button';
+import { MatFormField } from '@angular/material/form-field';
 
 @Component({
-  selector: 'app-confimation-dialog',
-  templateUrl: './confimation-dialog.component.html',
-  styleUrls: ['./confimation-dialog.component.scss']
+    selector: 'app-confimation-dialog',
+    templateUrl: './confimation-dialog.component.html',
+    styleUrls: ['./confimation-dialog.component.scss'],
+    standalone: true,
+    imports: [MatFormField, MatDialogActions, MatButton]
 })
 export class ConfimationDialogComponent {
 

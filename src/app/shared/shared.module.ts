@@ -9,19 +9,17 @@ import { ConfimationDialogComponent } from './components/confimation-dialog/conf
 
 
 @NgModule({
-  declarations: [
-    ErroDialogComponent,
-    CategoryPipe,
-    ConfimationDialogComponent
-  ],
-  imports: [
-    CommonModule,
-    AppMaterialModule
-  ],
-  exports: [
-    ErroDialogComponent,
-    ConfimationDialogComponent,
-    CategoryPipe
-  ]
+    imports: [
+        CommonModule,
+        AppMaterialModule,
+        ErroDialogComponent,
+        CategoryPipe,
+        ConfimationDialogComponent
+    ],
+    exports: [
+        ErroDialogComponent,
+        ConfimationDialogComponent,
+        CategoryPipe
+    ]
 })
 export class SharedModule { }
